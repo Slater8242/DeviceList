@@ -244,12 +244,22 @@ body {
     background-color: #F00;
 }
 
-.box{
+.trStyle span{
     border: 1px solid rgb(110, 110, 110);
 }
 
-.selectStyle{
+.trStyle .labelStyle{
+    display: inline-block;
+    width: 150px;
+}
+
+.trStyle .addressStyle{
+    display: inline-block;
+    width: 50px;
+}
+
+.trStyle select{
     background: rgb(36, 36, 36);
-    width: 100%;
+    width: 80%;
     text-align: center;
 }
