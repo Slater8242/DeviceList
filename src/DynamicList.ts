@@ -6,47 +6,56 @@ export class DynamicList {
 
 const table = document.getElementById("na-table") as HTMLTableElement;
 
-export function sendData(data: RDM_Device) {
+// export function sendData(data: RDM_Device) {
+//   row.setAttribute("id",`row-${data.uid}`)
 
-  const row = table.insertRow();
-  row.classList.add("trStyle");
-  row.setAttribute("id",`row-${data.uid}`)
+//   rowData(data, row);
+// }
 
-  rowData(data, row);
-}
+// export function updateData(data: RDM_Device) {
+//   const row = document.getElementById(`row-${data.uid}`) || document.createElement('tr');
 
-export function updateData(data: RDM_Device) {
-  const row = document.getElementById(`row-${data.uid}`) || document.createElement('tr');
+//   rowData(data, row);
+// }
 
-  rowData(data, row);
-}
+export function renderData(dataServer: RDM_Device){
+  const dataArr: RDM_Device[] = [];
+  dataArr.push(dataServer);
 
-function rowData(data: RDM_Device, row: HTMLElement){
-  const {
-    is_online,
-    uid,
-    label,
-    manufacturer,
-    model,
-    mode_index,
-    mode_count,
-    address,
-  } = data;
+  console.log(dataArr);
+  
+  dataArr.forEach(data=>{
+    const {
+      is_online,
+      uid,
+      label,
+      manufacturer,
+      model,
+      mode_index,
+      mode_count,
+      address,
+    } = data;
+    const uidMatch = uid.match(/^\d\w{3}/gm);
 
-  let options = "";
-  for (let i = 1; i <= mode_count; i++) {
-    options += `<option ${
-      mode_index === i ? "selected" : ""
-    }>Mode #${i}</option>`;
-  }
+    const row = document.getElementById(`row-${uid}`) || table.insertRow();
+    row.classList.add("trStyle");
+    
+    row.setAttribute("id", `row-${uid}`);
 
-  const select = `<select>${options}</select>`;
+    let options = "";
+    for (let i = 0; i <= mode_count; i++) {
+      options += `<option ${
+        mode_index === i ? "selected" : ""
+      }>Mode #${i}</option>`;
+    }
 
-  let cells = `
+    const select = `<select>${options}</select>`;
+
+    let cells = `
     <td>
       <span class="${is_online ? "success" : "danger"}"></span>
     </td>
-    <td>${uid}</td>
+    <td>${uid.replace(/^\d\w{3}/gm, uidMatch[0] + ":")}</td>
     <td><span class="labelStyle">${label}</span></td>
     <td>${manufacturer}</td>
     <td>${model}</td>
@@ -54,5 +63,6 @@ function rowData(data: RDM_Device, row: HTMLElement){
     <td><span class="addressStyle">${address}</span></td>
   `;
 
-  row.innerHTML = cells;
+    row.innerHTML = cells;
+  })
 }
