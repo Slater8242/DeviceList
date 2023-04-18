@@ -31,20 +31,20 @@ function rowData(data: RDM_Device){
     address,
   } = data;
 
-  let options = "";
-  for (let i = 1; i <= mode_count; i++) {
-    options += `<option ${
-      mode_index === i ? "selected" : ""
-    }>Mode #${i}</option>`;
-  }
+    let options = "";
+    for (let i = 0; i <= mode_count; i++) {
+      options += `<option ${
+        mode_index === i ? "selected" : ""
+      }>Mode #${i}</option>`;
+    }
 
-  const select = `<select>${options}</select>`;
+    const select = `<select>${options}</select>`;
 
   return `
     <td>
       <span class="${is_online ? "success" : "danger"}"></span>
     </td>
-    <td>${uid}</td>
+    <td>${uid.replace(/^\d\w{3}/gm, uidMatch[0] + ":")}</td>
     <td><span class="labelStyle">${label}</span></td>
     <td>${manufacturer}</td>
     <td>${model}</td>
