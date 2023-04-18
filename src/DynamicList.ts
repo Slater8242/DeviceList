@@ -6,41 +6,31 @@ export class DynamicList {
 
 const table = document.getElementById("na-table") as HTMLTableElement;
 
-// export function sendData(data: RDM_Device) {
-//   row.setAttribute("id",`row-${data.uid}`)
+export function renderData(data: RDM_Device[]) {
+  let rows = ''
+  data.forEach(item => {
+    rows += `
+    <tr class="trStyle" id="row-${item.uid}">
+      ${rowData(item)}
+    </tr>
+  `
+  })
 
-//   rowData(data, row);
-// }
+  table.innerHTML = rows
+}
 
-// export function updateData(data: RDM_Device) {
-//   const row = document.getElementById(`row-${data.uid}`) || document.createElement('tr');
-
-//   rowData(data, row);
-// }
-
-export function renderData(dataServer: RDM_Device){
-  const dataArr: RDM_Device[] = [];
-  dataArr.push(dataServer);
-
-  console.log(dataArr);
-  
-  dataArr.forEach(data=>{
-    const {
-      is_online,
-      uid,
-      label,
-      manufacturer,
-      model,
-      mode_index,
-      mode_count,
-      address,
-    } = data;
-    const uidMatch = uid.match(/^\d\w{3}/gm);
-
-    const row = document.getElementById(`row-${uid}`) || table.insertRow();
-    row.classList.add("trStyle");
-    
-    row.setAttribute("id", `row-${uid}`);
+function rowData(data: RDM_Device){
+  const {
+    is_online,
+    uid,
+    label,
+    manufacturer,
+    model,
+    mode_index,
+    mode_count,
+    address,
+  } = data;
+  const uidMatch = uid.match(/^\d\w{3}/gm);
 
     let options = "";
     for (let i = 0; i <= mode_count; i++) {
@@ -51,7 +41,7 @@ export function renderData(dataServer: RDM_Device){
 
     const select = `<select>${options}</select>`;
 
-    let cells = `
+  return `
     <td>
       <span class="${is_online ? "success" : "danger"}"></span>
     </td>
@@ -62,7 +52,4 @@ export function renderData(dataServer: RDM_Device){
     <td>${select}</td>
     <td><span class="addressStyle">${address}</span></td>
   `;
-
-    row.innerHTML = cells;
-  })
 }

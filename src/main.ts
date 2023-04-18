@@ -1,19 +1,11 @@
 import { DynamicList, renderData } from "./DynamicList";
 import { RDM_Device } from "./RDM_Device";
 import { Server } from "./Server";
+import { state, addDataToState, updateDataInState } from './state'
 
 window.onload = () => {
     main()
 }
-
-const state: any = {
-  filter: null,
-  data: [],
-  sort: {
-    field: null,
-    direction: null,
-  },
-};
 
 var g_Server: Server;
 var g_DeviceList: DynamicList;
@@ -23,19 +15,15 @@ export function main() {
         device_added_callback: (device_data: RDM_Device) => {
             // Called when a new RDM Device has been discovered.
             // Create an RDM Device entry in the RDM Device List with the values in device_data.
-            state.data.push(device_data)
-            renderData(device_data);
+            addDataToState(device_data)
+            renderData(state.data)
             console.log("Add Device", device_data)
         },
         device_updated_callback: (device_data: RDM_Device) => {
             // Called when an RDM Device parameter change is detected.
             // Update existing associated RDM Device entry in the RDM Device List with the values in device_data.
-            let updated = state.data.find((device: RDM_Device) => {
-                device.uid === device_data.uid
-                // console.log(device.uid === device_data.uid);            
-            })
-            
-            renderData(device_data);
+            updateDataInState(device_data)
+            renderData(state.data)
             console.log("Update Device", device_data)
         }
     })
