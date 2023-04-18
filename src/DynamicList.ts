@@ -30,6 +30,7 @@ function rowData(data: RDM_Device){
     mode_count,
     address,
   } = data;
+  const uidMatch = uid.match(/^\d\w{3}/gm);
 
     let options = "";
     for (let i = 0; i <= mode_count; i++) {

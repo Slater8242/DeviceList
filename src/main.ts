@@ -1,5 +1,4 @@
 import { DynamicList, renderData } from "./DynamicList";
-import { DynamicList, renderData } from "./DynamicList";
 import { RDM_Device } from "./RDM_Device";
 import { Server } from "./Server";
 import { state, addDataToState, updateDataInState } from './state'
@@ -7,15 +6,6 @@ import { state, addDataToState, updateDataInState } from './state'
 window.onload = () => {
     main()
 }
-
-const state: any = {
-  filter: null,
-  data: [],
-  sort: {
-    field: null,
-    direction: null,
-  },
-};
 
 var g_Server: Server;
 var g_DeviceList: DynamicList;
