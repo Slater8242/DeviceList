@@ -1,6 +1,7 @@
-import { DynamicList, sendData, updateData } from "./DynamicList";
+import { DynamicList, renderData } from "./DynamicList";
 import { RDM_Device } from "./RDM_Device";
 import { Server } from "./Server";
+import { state, addDataToState, updateDataInState } from './state'
 
 window.onload = () => {
     main()
@@ -14,13 +15,15 @@ export function main() {
         device_added_callback: (device_data: RDM_Device) => {
             // Called when a new RDM Device has been discovered.
             // Create an RDM Device entry in the RDM Device List with the values in device_data.
-            sendData(device_data);
+            addDataToState(device_data)
+            renderData(state.data)
             console.log("Add Device", device_data)
         },
         device_updated_callback: (device_data: RDM_Device) => {
             // Called when an RDM Device parameter change is detected.
             // Update existing associated RDM Device entry in the RDM Device List with the values in device_data.
-            updateData(device_data);
+            updateDataInState(device_data)
+            renderData(state.data)
             console.log("Update Device", device_data)
         }
     })

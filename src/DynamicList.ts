@@ -6,22 +6,20 @@ export class DynamicList {
 
 const table = document.getElementById("na-table") as HTMLTableElement;
 
-export function sendData(data: RDM_Device) {
+export function renderData(data: RDM_Device[]) {
+  let rows = ''
+  data.forEach(item => {
+    rows += `
+    <tr class="trStyle" id="row-${item.uid}">
+      ${rowData(item)}
+    </tr>
+  `
+  })
 
-  const row = table.insertRow();
-  row.classList.add("trStyle");
-  row.setAttribute("id",`row-${data.uid}`)
-
-  rowData(data, row);
+  table.innerHTML = rows
 }
 
-export function updateData(data: RDM_Device) {
-  const row = document.getElementById(`row-${data.uid}`) || document.createElement('tr');
-
-  rowData(data, row);
-}
-
-function rowData(data: RDM_Device, row: HTMLElement){
+function rowData(data: RDM_Device){
   const {
     is_online,
     uid,
@@ -42,7 +40,7 @@ function rowData(data: RDM_Device, row: HTMLElement){
 
   const select = `<select>${options}</select>`;
 
-  let cells = `
+  return `
     <td>
       <span class="${is_online ? "success" : "danger"}"></span>
     </td>
@@ -53,6 +51,4 @@ function rowData(data: RDM_Device, row: HTMLElement){
     <td>${select}</td>
     <td><span class="addressStyle">${address}</span></td>
   `;
-
-  row.innerHTML = cells;
 }
