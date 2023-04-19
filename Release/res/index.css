@@ -244,18 +244,16 @@ body {
     background-color: #F00;
 }
 
-.trStyle span{
-    border: 1px solid rgb(110, 110, 110);
-}
-
 .trStyle .labelStyle{
     display: inline-block;
     width: 150px;
+    border: 1px solid rgb(110, 110, 110);
 }
 
 .trStyle .addressStyle{
     display: inline-block;
     width: 50px;
+    border: 1px solid rgb(110, 110, 110);
 }
 
 .trStyle select{

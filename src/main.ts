@@ -1,7 +1,13 @@
 import { DynamicList, renderData } from "./DynamicList";
 import { RDM_Device } from "./RDM_Device";
 import { Server } from "./Server";
-import { state, addDataToState, updateDataInState } from './state'
+import { state, 
+    addDataToState, 
+    updateDataInState, 
+    sortByAddress, 
+    sortByManufacturer,
+    filterTmb
+} from './state'
 
 window.onload = () => {
     main()
@@ -17,14 +23,14 @@ export function main() {
             // Create an RDM Device entry in the RDM Device List with the values in device_data.
             addDataToState(device_data)
             renderData(state.data)
-            console.log("Add Device", device_data)
+            // console.log("Add Device", device_data)
         },
         device_updated_callback: (device_data: RDM_Device) => {
             // Called when an RDM Device parameter change is detected.
             // Update existing associated RDM Device entry in the RDM Device List with the values in device_data.
             updateDataInState(device_data)
             renderData(state.data)
-            console.log("Update Device", device_data)
+            // console.log("Update Device", device_data)
         }
     })
 
@@ -34,42 +40,35 @@ export function main() {
     console.log("First Device: ", g_Server.GetDeviceByIndex(0))
 
     document.getElementById("filter_none").onclick = () => {
+        renderData(state.data)
+        console.log(state.data);        
         console.log("Set DynamicList filter to show all devices")
     }
 
     document.getElementById("filter_na").onclick = () => {
+        filterTmb("Company NA")
         console.log('Set DynamicList filter to show devices if RDM_Device.manufacturer == "Company NA"')
     }
 
     document.getElementById("filter_tmb").onclick = () => {
+        filterTmb("TMB")
         console.log('Set DynamicList filter to show devices if RDM_Device.manufacturer == "TMB"')
     }
 
     document.getElementById("sort_uid").onclick = () => {
-        const sortedUid = sortByUID(state.data);
-        // sendData(sortedUid);
+        // sortByUID();
         console.log("Set DynamicList sort mode to RDM_Device.uid_value")
     }
 
     document.getElementById("sort_address").onclick = () => {
+        sortByAddress();
         console.log("Set DynamicList sort mode to RDM_Device.address")
     }
 
     document.getElementById("sort_manufacturer").onclick = () => {
-        sortByAddress(state.data);      
+        sortByManufacturer();      
         console.log("Set DynamicList sort mode to RDM_Device.manufacturer")
     }
 
     g_DeviceList = new DynamicList(document.getElementById("rdm_device_list"))
-}
-
-function sortByUID(devices: RDM_Device[]): RDM_Device[] {
-  return devices.sort((a, b) => +a.uid - +b.uid);
-}
-
-function sortByAddress(devices: RDM_Device[]): RDM_Device[] {
-    console.log(
-      devices.sort((a, b) => a.manufacturer.localeCompare(b.manufacturer))
-    );    
-  return devices.sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
 }
