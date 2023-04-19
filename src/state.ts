@@ -21,3 +21,27 @@ export const updateDataInState = (item: RDM_Device) => {
     return el
   })
 }
+
+export const filterManufacturer = (manufacturerName:string, array: RDM_Device[]) => {
+  return array.filter((item) => item.manufacturer === manufacturerName);
+};
+
+export const sortAddress = () => {
+  return state.data.sort((a, b) => a.address - b.address);
+}
+
+export const sortManufacturer = () => {
+  return state.data.sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
+}
+
+export const sortUid = () => {
+  return state.data.sort((a, b) => {
+    if (a.uid_integer > b.uid_integer) {
+      return 1;
+    } else if (a.uid_integer < b.uid_integer) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+}
