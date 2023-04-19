@@ -23,25 +23,26 @@ export const updateDataInState = (item: RDM_Device) => {
   })
 }
 
-// export const sortByUID = () => {
-//   const sortedData = state.data.sort((a,b)=> a.uid_integer.valueOf() - b.uid_integer)
-//   console.log(sortedData);
-//   renderData(sortedData)
-// }
+export const filterManufacturer = (manufacturerName:string, array: RDM_Device[]) => {
+  return array.filter((item) => item.manufacturer === manufacturerName);
+};
 
-export const filterTmb = (manufacturerName:string) => {
-  const filteredData = state.data.filter(item => item.manufacturer === manufacturerName )
-  console.log(filteredData);
-  renderData(filteredData)
+export const sortAddress = () => {
+  return state.data.sort((a, b) => a.address - b.address);
 }
 
-export const sortByAddress = () => {
-  const sortedData = state.data.sort((a,b)=> a.address - b.address)
-  console.log(sortedData);
-  renderData(sortedData)
+export const sortManufacturer = () => {
+  return state.data.sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
 }
 
-export const sortByManufacturer = () => {
-  const sortedData = state.data.sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
-  renderData(sortedData)
+export const sortUid = () => {
+  return state.data.sort((a, b) => {
+    if (a.uid_integer > b.uid_integer) {
+      return 1;
+    } else if (a.uid_integer < b.uid_integer) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
 }

@@ -5,6 +5,26 @@ export class DynamicList {
 }
 
 const table = document.getElementById("na-table") as HTMLTableElement;
+const deviceCountElem = document.getElementById(
+  "deviceFilterSort"
+) as HTMLSpanElement;
+
+export function renderdeviceFilterSort(
+  filterVisibleCount?: number,
+  deviceCount?: number,
+  filterSort?: string,
+  filterSortname?: string
+) {
+  const deviceCountDom = `
+    <span id="deviceFilterSort">
+      RDM Device List (${filterVisibleCount}/${deviceCount} | 
+      ${filterSort === "filter" ? filterSortname : "none"} | 
+      ${filterSort === "sort" ? filterSortname : "none"})
+    </span>
+  `;
+  
+  deviceCountElem.innerHTML = deviceCountDom;
+}
 
 export function renderData(data: RDM_Device[]) {
   let rows = ''
