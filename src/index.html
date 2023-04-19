@@ -37,9 +37,9 @@
         </div>
     </div>
     <div id="list_frame" class="frame">
-        <span id="deviceFilterSort">RDM Device List (${FILTER_VISIBLE_COUNT}/${DEVICE_COUNT} | ${FILTER_MODE} | ${SORT_MODE})</span>
+        <span class="table-total">RDM Device List (${FILTER_VISIBLE_COUNT}/${DEVICE_COUNT} | ${FILTER_MODE} | ${SORT_MODE})</span>
         <div id="rdm_device_list">
-            <table id="na-table" style="width: 100%;">
+            <table style="width: 100%;">
                 <tr class="rdm-list-header na-table-header">
                     <th style="min-width: 1rem; max-width: 1rem;"></th>
                     <th style="min-width: 6rem; max-width: 6rem;">UID</th>
@@ -49,6 +49,7 @@
                     <th style="min-width: 12rem;">MODE</th>
                     <th style="min-width: 6rem;">ADDRESS</th>
                 </tr>
+                <tbody class="table-rows"></tbody>
             </table>
         </div>
     </div>
