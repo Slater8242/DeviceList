@@ -23,8 +23,8 @@ export const updateDataInState = (item: RDM_Device) => {
   })
 }
 
-export const filterManufacturer = (manufacturerName:string, array: RDM_Device[]) => {
-  return array.filter((item) => item.manufacturer === manufacturerName);
+export const filterManufacturer = (manufacturerName:string) => {
+  return state.data.filter((item) => item.manufacturer === manufacturerName);
 };
 
 export const sortAddress = () => {

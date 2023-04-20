@@ -59,7 +59,7 @@ export function main() {
     }
 
     document.getElementById("filter_na").onclick = () => {
-        const filteredManufacturer = filterManufacturer("Company NA", state.data);
+        const filteredManufacturer = filterManufacturer("Company NA");
         renderData(filteredManufacturer);
         renderdeviceFilterSort(
           filteredManufacturer.length,
@@ -71,10 +71,7 @@ export function main() {
     }
 
     document.getElementById("filter_tmb").onclick = () => {
-        const filteredManufacturer = filterManufacturer(
-          "TMB",
-          state.data
-        );
+        const filteredManufacturer = filterManufacturer("TMB");
         renderData(filteredManufacturer);
         renderdeviceFilterSort(
           filteredManufacturer.length,

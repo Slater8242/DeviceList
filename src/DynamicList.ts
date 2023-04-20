@@ -4,7 +4,7 @@ export class DynamicList {
     constructor(private _root: HTMLElement) { }
 }
 
-const table = document.getElementById("na-table") as HTMLTableElement;
+const table = document.getElementById("dataTable") as HTMLTableElement;
 const deviceCountElem = document.getElementById(
   "deviceFilterSort"
 ) as HTMLSpanElement;
